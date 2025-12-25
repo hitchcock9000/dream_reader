@@ -1,0 +1,45 @@
+Analyzing dream_reader...                                       
+
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/core/widgets/glass_container.dart:29:33 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/core/widgets/glass_container.dart:32:35 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/core/widgets/glass_container.dart:38:30 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/core/widgets/glass_container.dart:39:30 • deprecated_member_use
+   info • 'DreamAnalysisRepositoryRef' is deprecated and shouldn't be used. Will be removed in 3.0. Use Ref instead • lib/data/repositories/dream_analysis_repository_impl.dart:13:49 • deprecated_member_use_from_same_package
+   info • 'ImageGenerationServiceRef' is deprecated and shouldn't be used. Will be removed in 3.0. Use Ref instead • lib/data/services/image_generation_service.dart:11:47 • deprecated_member_use_from_same_package
+   info • Don't invoke 'print' in production code • lib/data/services/image_generation_service.dart:20:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/data/services/image_generation_service.dart:46:9 • avoid_print
+   info • Don't invoke 'print' in production code • lib/data/services/image_generation_service.dart:50:7 • avoid_print
+   info • 'ShareServiceRef' is deprecated and shouldn't be used. Will be removed in 3.0. Use Ref instead • lib/data/services/share_service.dart:10:27 • deprecated_member_use_from_same_package
+   info • Don't invoke 'print' in production code • lib/data/services/share_service.dart:29:7 • avoid_print
+   info • 'VoiceServiceRef' is deprecated and shouldn't be used. Will be removed in 3.0. Use Ref instead • lib/data/services/voice_service.dart:7:27 • deprecated_member_use_from_same_package
+   info • Don't invoke 'print' in production code • lib/data/services/voice_service.dart:18:27 • avoid_print
+   info • Don't invoke 'print' in production code • lib/data/services/voice_service.dart:19:28 • avoid_print
+   info • 'listenMode' is deprecated and shouldn't be used. Use SpeechListenOptions.listenMode instead • lib/data/services/voice_service.dart:46:7 • deprecated_member_use
+   info • 'cancelOnError' is deprecated and shouldn't be used. Use SpeechListenOptions.cancelOnError instead • lib/data/services/voice_service.dart:47:7 • deprecated_member_use
+   info • 'partialResults' is deprecated and shouldn't be used. Use SpeechListenOptions.partialResults instead • lib/data/services/voice_service.dart:48:7 • deprecated_member_use
+warning • The annotation 'JsonKey.new' can only be used on fields or getters • lib/domain/entities/dream_response.dart:10:6 • invalid_annotation_target
+warning • The annotation 'JsonKey.new' can only be used on fields or getters • lib/domain/entities/dream_response.dart:11:6 • invalid_annotation_target
+warning • The annotation 'JsonKey.new' can only be used on fields or getters • lib/domain/entities/dream_response.dart:12:6 • invalid_annotation_target
+warning • Unused import: 'dart:typed_data' • lib/presentation/screens/dream_screen.dart:1:8 • unused_import
+   info • Don't invoke 'print' in production code • lib/presentation/screens/dream_screen.dart:30:9 • avoid_print
+   info • Don't invoke 'print' in production code • lib/presentation/screens/dream_screen.dart:45:7 • avoid_print
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/widgets/ai_orb.dart:31:28 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/widgets/ai_orb.dart:32:28 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/widgets/ai_orb.dart:34:28 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/widgets/ai_orb.dart:42:35 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/widgets/ai_orb.dart:48:35 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/widgets/ai_orb.dart:76:29 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/widgets/audio_waveform.dart:39:40 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/widgets/dream_image_reveal.dart:19:44 • deprecated_member_use
+warning • Unused import: 'package:dream_reader/core/theme/app_colors.dart' • lib/presentation/widgets/dream_share_card.dart:1:8 • unused_import
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/widgets/dream_share_card.dart:56:35 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/widgets/dream_share_card.dart:72:50 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/widgets/nebula_background.dart:46:44 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/widgets/sacred_input.dart:30:35 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/widgets/sacred_input.dart:46:45 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/widgets/sacred_input.dart:47:45 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/widgets/sacred_input.dart:52:47 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/widgets/sacred_input.dart:58:24 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/presentation/widgets/sacred_input.dart:75:49 • deprecated_member_use
+
+41 issues found. (ran in 5.8s)
