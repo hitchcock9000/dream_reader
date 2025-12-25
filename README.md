@@ -32,7 +32,7 @@
 
 ### 2. Clone the Repository
 ```bash
-git clone https://github.com/yourusername/dream_reader.git
+git clone https://github.com/0merbakir/dream_reader.git
 cd dream_reader
 ```
 
