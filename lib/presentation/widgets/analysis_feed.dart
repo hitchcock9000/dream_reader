@@ -1,6 +1,7 @@
 import 'package:dream_reader/core/widgets/glass_container.dart';
 import 'package:dream_reader/domain/entities/dream_response.dart';
-import 'package:dream_reader/presentation/widgets/dream_image_reveal.dart';
+import 'package:dream_reader/features/dream/presentation/widgets/dream_image_card.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,14 +10,16 @@ import 'package:dream_reader/core/extensions/l10n_extension.dart';
 class AnalysisFeed extends StatelessWidget {
   final DreamResponse? analysis;
   final String? imageUrl;
-  final bool isGeneratingImage;
+  final String? imageError;
+  final bool isImageLoading;
   final VoidCallback? onShare;
 
   const AnalysisFeed({
     super.key,
     this.analysis,
     this.imageUrl,
-    this.isGeneratingImage = false,
+    this.imageError,
+    this.isImageLoading = false,
     this.onShare,
   });
 
@@ -27,28 +30,13 @@ class AnalysisFeed extends StatelessWidget {
     final List<Widget> items = [];
 
     // 1. The Dream Image (if ready)
-    if (imageUrl != null) {
-      items.add(DreamImageReveal(imageUrl: imageUrl!));
-    } else if (isGeneratingImage) {
-      // Placeholder for image generation
-      items.add(
-        const GlassContainer(
-          opacity: 0.1,
-          child: SizedBox(
-            height: 200.h,
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const CircularProgressIndicator(color: Color(0xFF00F0FF)),
-                  SizedBox(height: 10.h),
-                  Text("MANIFESTING VISUALS...", style: TextStyle(color: Colors.white70, letterSpacing: 2, fontSize: 12.sp)),
-                ],
-              ),
-            ),
-          ),
-        ),
-      );
+    // 1. The Dream Image
+    if (imageUrl != null || isImageLoading || imageError != null) {
+      items.add(DreamImageCard(
+        imageUrl: imageUrl,
+        error: imageError,
+        isLoading: isImageLoading,
+      ));
     }
 
     // 2. Text Content

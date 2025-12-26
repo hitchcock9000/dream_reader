@@ -6,7 +6,7 @@ part of 'dream_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$dreamControllerHash() => r'd2000248cbd8d3ef19941892b3f3f8c7401f31f4';
+String _$dreamControllerHash() => r'f722f551531659e9670d0dac2afdab4bc892a916';
 
 /// See also [DreamController].
 @ProviderFor(DreamController)

@@ -145,7 +145,8 @@ class _DreamScreenState extends ConsumerState<DreamScreen> {
                         AnalysisFeed(
                           analysis: dreamState.analysis,
                           imageUrl: dreamState.imageUrl,
-                          isGeneratingImage: dreamState.isGeneratingImage,
+                          imageError: dreamState.imageError,
+                          isImageLoading: dreamState.isImageLoading,
                           onShare: _captureAndShare,
                         ),
                     ],
@@ -172,8 +173,10 @@ class _DreamScreenState extends ConsumerState<DreamScreen> {
               ],
             ),
           ),
-        ],
+        ),
       ),
-    );
+    ],
+  ),
+);
   }
 }

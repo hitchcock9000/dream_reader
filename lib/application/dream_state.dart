@@ -12,6 +12,7 @@ class DreamState with _$DreamState {
     DreamResponse? analysis,
     String? error,
     String? imageUrl,
-    @Default(false) bool isGeneratingImage,
+    String? imageError,
+    @Default(false) bool isImageLoading,
   }) = _DreamState;
 }

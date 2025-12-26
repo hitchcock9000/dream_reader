@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:dream_reader/application/dream_state.dart';
 import 'package:dream_reader/data/repositories/dream_analysis_repository_impl.dart';
-import 'package:dream_reader/data/services/image_generation_service.dart';
+import 'package:dream_reader/core/services/image_service.dart';
 import 'package:dream_reader/data/services/share_service.dart';
 import 'package:dream_reader/data/services/voice_service.dart';
 import 'package:flutter_tts/flutter_tts.dart';
@@ -79,7 +79,7 @@ class DreamController extends _$DreamController {
       );
       
       // Start Image Generation in parallel
-      generateImage(analysis.imageGenerationPrompt);
+      _generateDreamImage(analysis.imageGenerationPrompt);
 
       debugPrint('🔊 TTS Started');
       await speakResult(analysis.interpretation, languageCode: languageCode);
@@ -90,23 +90,28 @@ class DreamController extends _$DreamController {
     }
   }
 
-  Future<void> generateImage(String prompt) async {
-    debugPrint('🎨 Generating Image: $prompt');
-    state = state.copyWith(isGeneratingImage: true);
+  Future<void> _generateDreamImage(String prompt) async {
+    debugPrint('🎨 Generating DALL-E 3 Image: $prompt');
+    state = state.copyWith(
+      isImageLoading: true,
+      imageError: null,
+      imageUrl: null,
+    );
     
     try {
-      final service = ref.read(imageGenerationServiceProvider);
-      final url = await service.generateImage(prompt);
+      final service = ref.read(imageServiceProvider);
+      final (url, error) = await service.generateDreamImage(prompt);
       
       if (url != null) {
         debugPrint('🖼️ Image Received');
-        state = state.copyWith(imageUrl: url, isGeneratingImage: false);
+        state = state.copyWith(imageUrl: url, isImageLoading: false);
       } else {
-        state = state.copyWith(isGeneratingImage: false);
+        debugPrint('❌ Image Error: $error');
+        state = state.copyWith(imageError: error, isImageLoading: false);
       }
     } catch (e) {
-      debugPrint('❌ Image Gen Error: $e');
-      state = state.copyWith(isGeneratingImage: false);
+      debugPrint('❌ Image Gen Exception: $e');
+      state = state.copyWith(imageError: e.toString(), isImageLoading: false);
     }
   }
 

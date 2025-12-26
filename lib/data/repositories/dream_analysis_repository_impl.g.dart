@@ -7,7 +7,7 @@ part of 'dream_analysis_repository_impl.dart';
 // **************************************************************************
 
 String _$dreamAnalysisRepositoryHash() =>
-    r'ba1f4dcc804e5b5db6f0be66ea685a566c2a5eba';
+    r'544b0fcd9e9ba317dd960e3174559faa1d2f78de';
 
 /// See also [dreamAnalysisRepository].
 @ProviderFor(dreamAnalysisRepository)

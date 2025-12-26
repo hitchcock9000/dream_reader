@@ -20,9 +20,10 @@ mixin _$DreamState {
   bool get isListening => throw _privateConstructorUsedError;
   String get transcription => throw _privateConstructorUsedError;
   DreamResponse? get analysis => throw _privateConstructorUsedError;
-  Object? get error => throw _privateConstructorUsedError;
+  String? get error => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
-  bool get isGeneratingImage => throw _privateConstructorUsedError;
+  String? get imageError => throw _privateConstructorUsedError;
+  bool get isImageLoading => throw _privateConstructorUsedError;
 
   /// Create a copy of DreamState
   /// with the given fields replaced by the non-null parameter values.
@@ -42,9 +43,10 @@ abstract class $DreamStateCopyWith<$Res> {
       bool isListening,
       String transcription,
       DreamResponse? analysis,
-      Object? error,
+      String? error,
       String? imageUrl,
-      bool isGeneratingImage});
+      String? imageError,
+      bool isImageLoading});
 
   $DreamResponseCopyWith<$Res>? get analysis;
 }
@@ -70,7 +72,8 @@ class _$DreamStateCopyWithImpl<$Res, $Val extends DreamState>
     Object? analysis = freezed,
     Object? error = freezed,
     Object? imageUrl = freezed,
-    Object? isGeneratingImage = null,
+    Object? imageError = freezed,
+    Object? isImageLoading = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -89,14 +92,21 @@ class _$DreamStateCopyWithImpl<$Res, $Val extends DreamState>
           ? _value.analysis
           : analysis // ignore: cast_nullable_to_non_nullable
               as DreamResponse?,
-      error: freezed == error ? _value.error : error,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
       imageUrl: freezed == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      isGeneratingImage: null == isGeneratingImage
-          ? _value.isGeneratingImage
-          : isGeneratingImage // ignore: cast_nullable_to_non_nullable
+      imageError: freezed == imageError
+          ? _value.imageError
+          : imageError // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isImageLoading: null == isImageLoading
+          ? _value.isImageLoading
+          : isImageLoading // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
   }
@@ -129,9 +139,10 @@ abstract class _$$DreamStateImplCopyWith<$Res>
       bool isListening,
       String transcription,
       DreamResponse? analysis,
-      Object? error,
+      String? error,
       String? imageUrl,
-      bool isGeneratingImage});
+      String? imageError,
+      bool isImageLoading});
 
   @override
   $DreamResponseCopyWith<$Res>? get analysis;
@@ -156,7 +167,8 @@ class __$$DreamStateImplCopyWithImpl<$Res>
     Object? analysis = freezed,
     Object? error = freezed,
     Object? imageUrl = freezed,
-    Object? isGeneratingImage = null,
+    Object? imageError = freezed,
+    Object? isImageLoading = null,
   }) {
     return _then(_$DreamStateImpl(
       isLoading: null == isLoading
@@ -175,14 +187,21 @@ class __$$DreamStateImplCopyWithImpl<$Res>
           ? _value.analysis
           : analysis // ignore: cast_nullable_to_non_nullable
               as DreamResponse?,
-      error: freezed == error ? _value.error : error,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
       imageUrl: freezed == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      isGeneratingImage: null == isGeneratingImage
-          ? _value.isGeneratingImage
-          : isGeneratingImage // ignore: cast_nullable_to_non_nullable
+      imageError: freezed == imageError
+          ? _value.imageError
+          : imageError // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isImageLoading: null == isImageLoading
+          ? _value.isImageLoading
+          : isImageLoading // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -198,7 +217,8 @@ class _$DreamStateImpl implements _DreamState {
       this.analysis,
       this.error,
       this.imageUrl,
-      this.isGeneratingImage = false});
+      this.imageError,
+      this.isImageLoading = false});
 
   @override
   @JsonKey()
@@ -212,16 +232,18 @@ class _$DreamStateImpl implements _DreamState {
   @override
   final DreamResponse? analysis;
   @override
-  final Object? error;
+  final String? error;
   @override
   final String? imageUrl;
   @override
+  final String? imageError;
+  @override
   @JsonKey()
-  final bool isGeneratingImage;
+  final bool isImageLoading;
 
   @override
   String toString() {
-    return 'DreamState(isLoading: $isLoading, isListening: $isListening, transcription: $transcription, analysis: $analysis, error: $error, imageUrl: $imageUrl, isGeneratingImage: $isGeneratingImage)';
+    return 'DreamState(isLoading: $isLoading, isListening: $isListening, transcription: $transcription, analysis: $analysis, error: $error, imageUrl: $imageUrl, imageError: $imageError, isImageLoading: $isImageLoading)';
   }
 
   @override
@@ -237,23 +259,18 @@ class _$DreamStateImpl implements _DreamState {
                 other.transcription == transcription) &&
             (identical(other.analysis, analysis) ||
                 other.analysis == analysis) &&
-            const DeepCollectionEquality().equals(other.error, error) &&
+            (identical(other.error, error) || other.error == error) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
-            (identical(other.isGeneratingImage, isGeneratingImage) ||
-                other.isGeneratingImage == isGeneratingImage));
+            (identical(other.imageError, imageError) ||
+                other.imageError == imageError) &&
+            (identical(other.isImageLoading, isImageLoading) ||
+                other.isImageLoading == isImageLoading));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      isLoading,
-      isListening,
-      transcription,
-      analysis,
-      const DeepCollectionEquality().hash(error),
-      imageUrl,
-      isGeneratingImage);
+  int get hashCode => Object.hash(runtimeType, isLoading, isListening,
+      transcription, analysis, error, imageUrl, imageError, isImageLoading);
 
   /// Create a copy of DreamState
   /// with the given fields replaced by the non-null parameter values.
@@ -270,9 +287,10 @@ abstract class _DreamState implements DreamState {
       final bool isListening,
       final String transcription,
       final DreamResponse? analysis,
-      final Object? error,
+      final String? error,
       final String? imageUrl,
-      final bool isGeneratingImage}) = _$DreamStateImpl;
+      final String? imageError,
+      final bool isImageLoading}) = _$DreamStateImpl;
 
   @override
   bool get isLoading;
@@ -283,11 +301,13 @@ abstract class _DreamState implements DreamState {
   @override
   DreamResponse? get analysis;
   @override
-  Object? get error;
+  String? get error;
   @override
   String? get imageUrl;
   @override
-  bool get isGeneratingImage;
+  String? get imageError;
+  @override
+  bool get isImageLoading;
 
   /// Create a copy of DreamState
   /// with the given fields replaced by the non-null parameter values.
