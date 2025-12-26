@@ -23,12 +23,16 @@ class AIOrb extends StatelessWidget {
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        final double size = constraints.biggest.shortestSide;
+        // Limit maximum size on large desktop/web screens
+        final double maxWidth = 400.0;
+        final double size = constraints.biggest.shortestSide.clamp(100.0, maxWidth);
         final double orbSize = size * 0.5;
 
-        return Stack(
-          alignment: Alignment.center,
-          children: [
+        return Center(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: maxWidth, maxHeight: maxWidth),
+            child: Stack(
+              alignment: Alignment.center,
             // Concentric Ripples when listening
             if (isListening) ...[
               for (int i = 0; i < 3; i++)

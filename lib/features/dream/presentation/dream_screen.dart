@@ -104,27 +104,30 @@ class _DreamScreenState extends ConsumerState<DreamScreen> {
 
                 return SingleChildScrollView(
                   physics: const ClampingScrollPhysics(),
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(
-                      minHeight: vh,
-                      maxWidth: 800.w,
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.w),
-                      child: Column(
-                        children: [
-                          SizedBox(height: isCompact ? 10.h : 20.h),
-                          
-                          // Header (Premium Typography)
-                          Text(
-                            context.l10n.appTitle,
-                            style: GoogleFonts.orbitron(
-                              color: Colors.white.withValues(alpha: 0.6),
-                              fontSize: isCompact ? 10.sp : 12.sp,
-                              letterSpacing: isCompact ? 4 : 8,
-                              fontWeight: FontWeight.w300,
+                  child: Center(
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minHeight: vh,
+                        maxWidth: 700, // Fixed max width for desktop/tablet
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 24.w),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(height: isCompact ? 10.h : 20.h),
+                            
+                            // Header (Premium Typography)
+                            Text(
+                              context.l10n.appTitle,
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.orbitron(
+                                color: Colors.white.withValues(alpha: 0.6),
+                                fontSize: isCompact ? 10.sp : 14.sp,
+                                letterSpacing: isCompact ? 4 : 8,
+                                fontWeight: FontWeight.w300,
+                              ),
                             ),
-                          ),
                           
                           SizedBox(height: isCompact ? 10.h : 30.h),
                           

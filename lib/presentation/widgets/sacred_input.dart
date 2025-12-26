@@ -56,7 +56,7 @@ class _SacredInputState extends ConsumerState<SacredInput> {
         if (widget.isListening) ...[
           Padding(
             padding: EdgeInsets.only(bottom: 20.h),
-            child: const AudioWaveform(isListening: true),
+            child: const Center(child: AudioWaveform(isListening: true)),
           ),
           Text(
             context.l10n.listeningStatus,
