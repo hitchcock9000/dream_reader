@@ -120,8 +120,12 @@ class _SacredInputState extends ConsumerState<SacredInput> {
             behavior: HitTestBehavior.opaque,
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 300),
-              width: 280.w,
-              height: 80.h,
+              constraints: BoxConstraints(
+                minWidth: 200.w,
+                maxWidth: 400.w,
+                minHeight: 60.h,
+                maxHeight: 80.h,
+              ),
               decoration: BoxDecoration(
                 color: const Color(0xFF7B61FF).withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(40.r),

@@ -96,85 +96,108 @@ class _DreamScreenState extends ConsumerState<DreamScreen> {
 
           // 2. UI Layer
           SafeArea(
-            child: Center(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(maxWidth: 800.w),
-                child: Column(
-                  children: [
-                SizedBox(height: 10.h),
-                
-                // Header (Premium Typography)
-                Text(
-                  context.l10n.appTitle,
-                  style: GoogleFonts.orbitron(
-                    color: Colors.white.withValues(alpha: 0.6),
-                    fontSize: 12.sp,
-                    letterSpacing: 8,
-                    fontWeight: FontWeight.w300,
-                  ),
-                ),
-                
-                SizedBox(height: 30.h),
-                
-                // 3. The AI Agent Orb (with ripples handled internally now)
-                AIOrb(
-                  isListening: dreamState.isListening,
-                  isLoading: dreamState.isLoading,
-                ),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final double vh = constraints.maxHeight;
+                // Compact mode if height is small (e.g. mobile landscape or small browser)
+                final bool isCompact = vh < 600;
 
-                // 4. Results & Transcription
-                Expanded(
-                  child: Stack(
-                    children: [
-                      if (dreamState.isLoading)
-                        const LottieLoading(),
-
-                      if (dreamState.error != null)
-                         Center(
-                          child: Padding(
-                            padding: EdgeInsets.all(24.w),
-                            child: Text(
-                              "${context.l10n.errorConnection}\n${dreamState.error}",
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(color: Colors.redAccent),
+                return SingleChildScrollView(
+                  physics: const ClampingScrollPhysics(),
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: vh,
+                      maxWidth: 800.w,
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      child: Column(
+                        children: [
+                          SizedBox(height: isCompact ? 10.h : 20.h),
+                          
+                          // Header (Premium Typography)
+                          Text(
+                            context.l10n.appTitle,
+                            style: GoogleFonts.orbitron(
+                              color: Colors.white.withValues(alpha: 0.6),
+                              fontSize: isCompact ? 10.sp : 12.sp,
+                              letterSpacing: isCompact ? 4 : 8,
+                              fontWeight: FontWeight.w300,
                             ),
                           ),
-                        ),
-                        
-                      if (dreamState.analysis != null && !dreamState.isLoading)
-                        AnalysisFeed(
-                          analysis: dreamState.analysis,
-                          imageUrl: dreamState.imageUrl,
-                          imageError: dreamState.imageError,
-                          isImageLoading: dreamState.isImageLoading,
-                          onShare: _captureAndShare,
-                        ),
-                    ],
-                  ),
-                ),
+                          
+                          SizedBox(height: isCompact ? 10.h : 30.h),
+                          
+                          // 3. The AI Agent Orb
+                          SizedBox(
+                            height: isCompact ? 180.h : 300.h,
+                            child: AIOrb(
+                              isListening: dreamState.isListening,
+                              isLoading: dreamState.isLoading,
+                            ),
+                          ),
 
-                // 5. Shared Input Area
-                Padding(
-                  padding: EdgeInsets.only(bottom: 30.h, top: 20.h, left: 20.w, right: 20.w),
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(maxWidth: 600.w),
-                    child: SacredInput(
-                      isListening: dreamState.isListening,
-                      isLoading: dreamState.isLoading,
-                      onStartListening: () {
-                        final locale = Localizations.localeOf(context);
-                        final localeId = "${locale.languageCode}-${locale.countryCode ?? locale.languageCode.toUpperCase()}";
-                        controller.startVoiceInput(localeId);
-                      },
-                      onStopListening: () => controller.stopVoiceInput(),
+                          // 4. Results & Transcription
+                          // Using a fixed height or minHeight for the feed area to avoid infinite scroll issues in Column
+                          ConstrainedBox(
+                            constraints: BoxConstraints(
+                              minHeight: 200.h,
+                              maxHeight: isCompact ? 400.h : 1000.h,
+                            ),
+                            child: Stack(
+                              children: [
+                                if (dreamState.isLoading)
+                                  const LottieLoading(),
+
+                                if (dreamState.error != null)
+                                   Center(
+                                    child: Padding(
+                                      padding: EdgeInsets.all(24.w),
+                                      child: Text(
+                                        "${context.l10n.errorConnection}\n${dreamState.error}",
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(color: Colors.redAccent),
+                                      ),
+                                    ),
+                                  ),
+                                  
+                                if (dreamState.analysis != null && !dreamState.isLoading)
+                                  AnalysisFeed(
+                                    analysis: dreamState.analysis,
+                                    imageUrl: dreamState.imageUrl,
+                                    imageError: dreamState.imageError,
+                                    isImageLoading: dreamState.isImageLoading,
+                                    onShare: _captureAndShare,
+                                  ),
+                              ],
+                            ),
+                          ),
+
+                          // 5. Shared Input Area
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 30.h, top: 20.h),
+                            child: ConstrainedBox(
+                              constraints: BoxConstraints(maxWidth: 600.w),
+                              child: SacredInput(
+                                isListening: dreamState.isListening,
+                                isLoading: dreamState.isLoading,
+                                onStartListening: () {
+                                  final locale = Localizations.localeOf(context);
+                                  final localeId = "${locale.languageCode}-${locale.countryCode ?? locale.languageCode.toUpperCase()}";
+                                  controller.startVoiceInput(localeId);
+                                },
+                                onStopListening: () => controller.stopVoiceInput(),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                );
+              },
             ),
           ),
-        ),
-      ),
     ],
   ),
 );

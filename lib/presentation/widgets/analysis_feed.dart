@@ -85,23 +85,18 @@ class AnalysisFeed extends StatelessWidget {
        );
     }
 
-    return Center(
-      child: ConstrainedBox(
-        constraints: BoxConstraints(maxWidth: 600.w),
-        child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-          children: items
-              .map((item) => Padding(
-                    padding: EdgeInsets.only(bottom: 20.h),
-                    child: item,
-                  ))
-              .toList()
-              .animate(interval: 200.ms)
-              .fadeIn(duration: 800.ms)
-              .blur(begin: const Offset(10, 10), end: Offset.zero, duration: 800.ms)
-              .slideY(begin: 0.2, end: 0, duration: 800.ms, curve: Curves.easeOutCirc),
-        ),
-      ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: items
+          .map((item) => Padding(
+                padding: EdgeInsets.only(bottom: 20.h),
+                child: item,
+              ))
+          .toList()
+          .animate(interval: 200.ms)
+          .fadeIn(duration: 800.ms)
+          .blur(begin: const Offset(10, 10), end: Offset.zero, duration: 800.ms)
+          .slideY(begin: 0.2, end: 0, duration: 800.ms, curve: Curves.easeOutCirc),
     );
   }
 }
