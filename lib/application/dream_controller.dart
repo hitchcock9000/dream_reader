@@ -26,13 +26,13 @@ class DreamController extends _$DreamController {
     await _flutterTts.setSpeechRate(0.4); // Deep, mystical voice
   }
 
-  void startVoiceInput() async {
+  void startVoiceInput(String localeId) async {
     state = state.copyWith(isListening: true, error: null, transcription: '');
     
     final voiceService = ref.read(voiceServiceProvider);
     
     await voiceService.startListening(
-      localeId: 'tr-TR',
+      localeId: localeId,
       onResult: (text) {
         state = state.copyWith(transcription: text);
       },
@@ -50,7 +50,7 @@ class DreamController extends _$DreamController {
         if (!isListening) {
           debugPrint('🎙️ Transcription Finished: ${state.transcription}');
           if (state.transcription.trim().isNotEmpty) {
-            submitDream(state.transcription);
+            submitDream(state.transcription, languageCode: localeId.split('-').first);
           } else if (state.error == null) {
             // Only show "No speech detected" if there wasn't a harder error already
             state = state.copyWith(
@@ -66,12 +66,12 @@ class DreamController extends _$DreamController {
     ref.read(voiceServiceProvider).stopListening();
   }
 
-  Future<void> submitDream(String text) async {
+  Future<void> submitDream(String text, {String languageCode = 'en'}) async {
     state = state.copyWith(isLoading: true, error: null);
 
     try {
       final repository = ref.read(dreamAnalysisRepositoryProvider);
-      final analysis = await repository.analyzeDream(text);
+      final analysis = await repository.analyzeDream(text, languageCode: languageCode);
       
       state = state.copyWith(
         isLoading: false, 
@@ -82,7 +82,7 @@ class DreamController extends _$DreamController {
       generateImage(analysis.imageGenerationPrompt);
 
       debugPrint('🔊 TTS Started');
-      await speakResult(analysis.interpretation);
+      await speakResult(analysis.interpretation, languageCode: languageCode);
 
     } catch (e) {
       debugPrint('❌ Submission Error: $e');
@@ -110,7 +110,12 @@ class DreamController extends _$DreamController {
     }
   }
 
-  Future<void> speakResult(String text) async {
+  Future<void> speakResult(String text, {String? languageCode}) async {
+    if (languageCode != null) {
+      // Find a matching locale for TTS
+      // Most languages work with just the language code, but we can be specific
+      await _flutterTts.setLanguage(languageCode);
+    }
     await _flutterTts.speak(text);
   }
   

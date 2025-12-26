@@ -154,7 +154,11 @@ class _DreamScreenState extends ConsumerState<DreamScreen> {
                   child: SacredInput(
                     isListening: dreamState.isListening,
                     isLoading: dreamState.isLoading,
-                    onStartListening: () => controller.startVoiceInput(),
+                    onStartListening: () {
+                      final locale = Localizations.localeOf(context);
+                      final localeId = "${locale.languageCode}-${locale.countryCode ?? locale.languageCode.toUpperCase()}";
+                      controller.startVoiceInput(localeId);
+                    },
                     onStopListening: () => controller.stopVoiceInput(),
                   ),
                 ),

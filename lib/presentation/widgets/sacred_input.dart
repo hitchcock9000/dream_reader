@@ -37,7 +37,11 @@ class _SacredInputState extends ConsumerState<SacredInput> {
 
   void _submitManual() {
     if (_textController.text.trim().isNotEmpty) {
-      ref.read(dreamControllerProvider.notifier).submitDream(_textController.text);
+      final locale = Localizations.localeOf(context);
+      ref.read(dreamControllerProvider.notifier).submitDream(
+        _textController.text,
+        languageCode: locale.languageCode,
+      );
       _textController.clear();
       setState(() => _isManualMode = false);
     }

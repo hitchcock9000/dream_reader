@@ -30,27 +30,32 @@ class DreamAnalysisRepositoryImpl implements DreamAnalysisRepository {
   }
 
   @override
-  Future<DreamResponse> analyzeDream(String dreamText) async {
-    final systemPrompt = '''
-      You are an expert dream interpreter with knowledge of psychology (Jungian and Freudian), mysticism, and symbolism.
-      Analyze the user's dream and return a JSON object with the following fields:
-      - interpretation: A detailed interpretation of the dream.
-      - psychological_insight: Psychological themes and insights derived from the dream.
-      - mystical_symbol: A key symbol from the dream and its mystical meaning.
-      - image_generation_prompt: A vivid, valid prompt to generate an image representing the essence of the dream (optimized for an image generation AI).
-      
-      JSON keys must be: "interpretation", "psychological_insight", "mystical_symbol", "image_generation_prompt".
-    ''';
+  Future<DreamResponse> analyzeDream(String text, {String languageCode = 'en'}) async {
+    final prompt = [
+      Content.text('''
+You are a mystical and psychological dream analyst.
+The user is providing their dream in the following language: $languageCode.
+Your task is to provide a deep, insightful analysis strictly in $languageCode.
 
-    final content = [
-      Content.multi([
-        TextPart(systemPrompt),
-        TextPart('Dream to analyze: "$dreamText"'),
-      ])
+Return a JSON object with exactly these keys:
+- interpretation: A 2-3 sentence mystical interpretation.
+- psychologicalInsight: A 1-2 sentence psychological perspective.
+- mysticalSymbol: A single powerful symbol found in the dream.
+- imageGenerationPrompt: A descriptive English prompt for DALL-E to generate a surreal, cinematic, and mystical image of the dream. (This key MUST always be in English).
+
+JSON format:
+{
+  "interpretation": "...",
+  "psychologicalInsight": "...",
+  "mysticalSymbol": "...",
+  "imageGenerationPrompt": "..."
+}
+'''),
+      Content.text(text),
     ];
 
     try {
-      final response = await _model.generateContent(content);
+      final response = await _model.generateContent(prompt);
       
       if (response.text == null) {
         throw Exception('Failed to generate analysis: Empty response.');
