@@ -1,7 +1,7 @@
 import 'package:dream_reader/core/widgets/glass_container.dart';
 import 'package:dream_reader/domain/entities/dream_response.dart';
 import 'package:dream_reader/presentation/widgets/dream_image_reveal.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:dream_reader/core/extensions/l10n_extension.dart';
@@ -35,14 +35,14 @@ class AnalysisFeed extends StatelessWidget {
         const GlassContainer(
           opacity: 0.1,
           child: SizedBox(
-            height: 200,
+            height: 200.h,
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CircularProgressIndicator(color: Color(0xFF00F0FF)),
-                  SizedBox(height: 10),
-                  Text("MANIFESTING VISUALS...", style: TextStyle(color: Colors.white70, letterSpacing: 2)),
+                  const CircularProgressIndicator(color: Color(0xFF00F0FF)),
+                  SizedBox(height: 10.h),
+                  Text("MANIFESTING VISUALS...", style: TextStyle(color: Colors.white70, letterSpacing: 2, fontSize: 12.sp)),
                 ],
               ),
             ),
@@ -97,18 +97,23 @@ class AnalysisFeed extends StatelessWidget {
        );
     }
 
-    return ListView(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 100),
-      children: items
-          .map((item) => Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: item,
-              ))
-          .toList()
-          .animate(interval: 200.ms)
-          .fadeIn(duration: 800.ms)
-          .blur(begin: const Offset(10, 10), end: Offset.zero, duration: 800.ms)
-          .slideY(begin: 0.2, end: 0, duration: 800.ms, curve: Curves.easeOutCirc),
+    return Center(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxWidth: 600.w),
+        child: ListView(
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+          children: items
+              .map((item) => Padding(
+                    padding: EdgeInsets.only(bottom: 20.h),
+                    child: item,
+                  ))
+              .toList()
+              .animate(interval: 200.ms)
+              .fadeIn(duration: 800.ms)
+              .blur(begin: const Offset(10, 10), end: Offset.zero, duration: 800.ms)
+              .slideY(begin: 0.2, end: 0, duration: 800.ms, curve: Curves.easeOutCirc),
+        ),
+      ),
     );
   }
 }
@@ -130,14 +135,14 @@ class _FeedItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GlassContainer(
       opacity: 0.08,
-      blur: 20,
+      blur: 20.r,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(icon, color: color, size: 18),
-              const SizedBox(width: 10),
+              Icon(icon, color: color, size: 18.sp),
+              SizedBox(width: 10.w),
               Expanded(
                 child: Text(
                   title,
@@ -145,19 +150,19 @@ class _FeedItem extends StatelessWidget {
                     color: color,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 2,
-                    fontSize: 12,
+                    fontSize: 12.sp,
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 12),
+          SizedBox(height: 12.h),
           Text(
             content,
-            style: const TextStyle(
+            style: TextStyle(
               color: Colors.white, // Using white text for readability
-              fontSize: 16,
+              fontSize: 16.sp,
               height: 1.5,
             ),
           ),

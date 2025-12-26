@@ -11,6 +11,7 @@ import 'package:dream_reader/presentation/widgets/sacred_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:dream_reader/core/extensions/l10n_extension.dart';
 
@@ -59,14 +60,14 @@ class _DreamScreenState extends ConsumerState<DreamScreen> {
               next.error.toString(),
               style: GoogleFonts.orbitron(
                 color: Colors.white,
-                fontSize: 12,
+                fontSize: 12.sp,
                 letterSpacing: 1.2,
               ),
             ),
             backgroundColor: const Color(0xFF7B61FF).withValues(alpha: 0.9),
             behavior: SnackBarBehavior.floating,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            margin: const EdgeInsets.all(20),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
+            margin: EdgeInsets.all(20.w),
           ),
         );
       }
@@ -95,22 +96,25 @@ class _DreamScreenState extends ConsumerState<DreamScreen> {
 
           // 2. UI Layer
           SafeArea(
-            child: Column(
-              children: [
-                const SizedBox(height: 10),
+            child: Center(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: 800.w),
+                child: Column(
+                  children: [
+                SizedBox(height: 10.h),
                 
                 // Header (Premium Typography)
                 Text(
                   context.l10n.appTitle,
                   style: GoogleFonts.orbitron(
                     color: Colors.white.withValues(alpha: 0.6),
-                    fontSize: 12,
+                    fontSize: 12.sp,
                     letterSpacing: 8,
                     fontWeight: FontWeight.w300,
                   ),
                 ),
                 
-                const SizedBox(height: 30),
+                SizedBox(height: 30.h),
                 
                 // 3. The AI Agent Orb (with ripples handled internally now)
                 AIOrb(
@@ -128,7 +132,7 @@ class _DreamScreenState extends ConsumerState<DreamScreen> {
                       if (dreamState.error != null)
                          Center(
                           child: Padding(
-                            padding: const EdgeInsets.all(24.0),
+                            padding: EdgeInsets.all(24.w),
                             child: Text(
                               "${context.l10n.errorConnection}\n${dreamState.error}",
                               textAlign: TextAlign.center,
@@ -150,16 +154,19 @@ class _DreamScreenState extends ConsumerState<DreamScreen> {
 
                 // 5. Shared Input Area
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 30, top: 20),
-                  child: SacredInput(
-                    isListening: dreamState.isListening,
-                    isLoading: dreamState.isLoading,
-                    onStartListening: () {
-                      final locale = Localizations.localeOf(context);
-                      final localeId = "${locale.languageCode}-${locale.countryCode ?? locale.languageCode.toUpperCase()}";
-                      controller.startVoiceInput(localeId);
-                    },
-                    onStopListening: () => controller.stopVoiceInput(),
+                  padding: EdgeInsets.only(bottom: 30.h, top: 20.h, left: 20.w, right: 20.w),
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(maxWidth: 600.w),
+                    child: SacredInput(
+                      isListening: dreamState.isListening,
+                      isLoading: dreamState.isLoading,
+                      onStartListening: () {
+                        final locale = Localizations.localeOf(context);
+                        final localeId = "${locale.languageCode}-${locale.countryCode ?? locale.languageCode.toUpperCase()}";
+                        controller.startVoiceInput(localeId);
+                      },
+                      onStopListening: () => controller.stopVoiceInput(),
+                    ),
                   ),
                 ),
               ],

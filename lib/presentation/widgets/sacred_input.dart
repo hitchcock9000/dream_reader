@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:dream_reader/presentation/widgets/audio_waveform.dart';
@@ -53,20 +53,20 @@ class _SacredInputState extends ConsumerState<SacredInput> {
       mainAxisSize: MainAxisSize.min,
       children: [
         if (widget.isListening) ...[
-          const Padding(
-            padding: EdgeInsets.only(bottom: 20),
-            child: AudioWaveform(isListening: true),
+          Padding(
+            padding: EdgeInsets.only(bottom: 20.h),
+            child: const AudioWaveform(isListening: true),
           ),
           Text(
             context.l10n.listeningStatus,
             style: GoogleFonts.orbitron(
               color: Colors.white.withValues(alpha: 0.7),
               letterSpacing: 2.0,
-              fontSize: 10,
+              fontSize: 10.sp,
               fontWeight: FontWeight.w300,
             ),
           ).animate().fadeIn(),
-          const SizedBox(height: 20),
+          SizedBox(height: 20.h),
         ],
 
         if (widget.isLoading) ...[
@@ -75,23 +75,23 @@ class _SacredInputState extends ConsumerState<SacredInput> {
             style: GoogleFonts.orbitron(
               color: const Color(0xFFFF00FF),
               letterSpacing: 2.0,
-              fontSize: 10,
+              fontSize: 10.sp,
               fontWeight: FontWeight.w300,
             ),
           ).animate(onPlay: (c) => c.repeat(reverse: true)).fadeIn().shimmer(duration: 1.seconds),
-          const SizedBox(height: 20),
+          SizedBox(height: 20.h),
         ],
 
         if (_isManualMode && !widget.isLoading && !widget.isListening) ...[
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
+            padding: EdgeInsets.symmetric(horizontal: 24.w),
             child: GlassContainer(
               opacity: 0.1,
               child: TextField(
                 controller: _textController,
                 autofocus: true,
                 maxLines: 3,
-                style: const TextStyle(color: Colors.white, fontSize: 16),
+                style: TextStyle(color: Colors.white, fontSize: 16.sp),
                 decoration: InputDecoration(
                   hintText: context.l10n.inputPlaceholder,
                   hintStyle: TextStyle(color: Colors.white.withValues(alpha: 0.5)),
@@ -105,12 +105,12 @@ class _SacredInputState extends ConsumerState<SacredInput> {
               ),
             ),
           ).animate().fadeIn().slideY(begin: 0.1, end: 0),
-          const SizedBox(height: 10),
+          SizedBox(height: 10.h),
           TextButton(
             onPressed: () => setState(() => _isManualMode = false),
             child: Text(
               "CANCEL",
-              style: GoogleFonts.orbitron(color: Colors.white38, fontSize: 10, letterSpacing: 2),
+              style: GoogleFonts.orbitron(color: Colors.white38, fontSize: 10.sp, letterSpacing: 2),
             ),
           ),
         ] else if (!widget.isListening && !widget.isLoading) ...[
@@ -119,20 +119,20 @@ class _SacredInputState extends ConsumerState<SacredInput> {
             behavior: HitTestBehavior.opaque,
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 300),
-              width: 280,
-              height: 80,
+              width: 280.w,
+              height: 80.h,
               decoration: BoxDecoration(
                 color: const Color(0xFF7B61FF).withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(40),
+                borderRadius: BorderRadius.circular(40.r),
                 border: Border.all(
                   color: const Color(0xFF7B61FF).withValues(alpha: 0.5),
-                  width: 1.5,
+                  width: 1.5.w,
                 ),
                 boxShadow: [
                   BoxShadow(
                     color: const Color(0xFF7B61FF).withValues(alpha: 0.2),
-                    blurRadius: 30,
-                    spreadRadius: 2,
+                    blurRadius: 30.r,
+                    spreadRadius: 2.r,
                   ),
                 ],
               ),
@@ -140,15 +140,15 @@ class _SacredInputState extends ConsumerState<SacredInput> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(Icons.mic, color: Colors.white, size: 20),
-                    const SizedBox(width: 15),
+                    Icon(Icons.mic, color: Colors.white, size: 20.sp),
+                    SizedBox(width: 15.w),
                     Text(
                       "RECORD DREAM",
                       style: GoogleFonts.orbitron(
                         color: Colors.white,
                         letterSpacing: 2,
                         fontWeight: FontWeight.w400,
-                        fontSize: 12,
+                        fontSize: 12.sp,
                       ),
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -157,14 +157,14 @@ class _SacredInputState extends ConsumerState<SacredInput> {
               ),
             ),
           ),
-          const SizedBox(height: 15),
+          SizedBox(height: 15.h),
           TextButton(
             onPressed: () => setState(() => _isManualMode = true),
             child: Text(
               "OR TYPE YOUR VISION",
               style: GoogleFonts.orbitron(
                 color: Colors.white.withValues(alpha: 0.4),
-                fontSize: 10,
+                fontSize: 10.sp,
                 letterSpacing: 2,
               ),
             ),
@@ -174,25 +174,25 @@ class _SacredInputState extends ConsumerState<SacredInput> {
             onTap: widget.onStopListening,
             behavior: HitTestBehavior.opaque,
             child: Container(
-              width: 80,
-              height: 80,
+              width: 80.w,
+              height: 80.w, // Circle use width
               decoration: BoxDecoration(
                 color: const Color(0xFF00F0FF).withValues(alpha: 0.1),
                 shape: BoxShape.circle,
                 border: Border.all(
                   color: const Color(0xFF00F0FF).withValues(alpha: 0.8),
-                  width: 1.5,
+                  width: 1.5.w,
                 ),
                 boxShadow: [
                   BoxShadow(
                     color: const Color(0xFF00F0FF).withValues(alpha: 0.2),
-                    blurRadius: 30,
-                    spreadRadius: 2,
+                    blurRadius: 30.r,
+                    spreadRadius: 2.r,
                   ),
                 ],
               ),
-              child: const Center(
-                child: Icon(Icons.stop, color: Color(0xFF00F0FF), size: 28),
+              child: Center(
+                child: Icon(Icons.stop, color: const Color(0xFF00F0FF), size: 28.sp),
               ),
             ),
           ),

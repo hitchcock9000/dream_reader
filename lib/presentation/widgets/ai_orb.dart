@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 class AIOrb extends StatelessWidget {
@@ -22,8 +22,8 @@ class AIOrb extends StatelessWidget {
 
     return Center(
       child: SizedBox(
-        width: 300,
-        height: 300,
+        width: 300.w,
+        height: 300.w, // Keep it square using width
         child: Stack(
           alignment: Alignment.center,
           children: [
@@ -31,8 +31,8 @@ class AIOrb extends StatelessWidget {
             if (isListening) ...[
               for (int i = 0; i < 3; i++)
                 Container(
-                  width: 150,
-                  height: 150,
+                  width: 150.w,
+                  height: 150.w,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
@@ -53,8 +53,8 @@ class AIOrb extends StatelessWidget {
 
             // The Main Orb
             Container(
-              width: 150,
-              height: 150,
+              width: 150.w,
+              height: 150.w,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
