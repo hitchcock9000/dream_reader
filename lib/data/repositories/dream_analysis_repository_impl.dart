@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:dream_reader/domain/entities/dream_response.dart';
 import 'package:dream_reader/domain/repositories/dream_analysis_repository.dart';
+import 'package:flutter/foundation.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
