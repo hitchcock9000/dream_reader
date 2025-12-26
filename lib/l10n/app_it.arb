@@ -1,0 +1,9 @@
+{
+  "@@locale": "it",
+  "appTitle": "L E T T O R E   D I   S O G N I",
+  "inputPlaceholder": "Descrivi il tuo sogno qui...",
+  "listeningStatus": "ASCOLTANDO LA TUA ANIMA...",
+  "analyzingStatus": "DECIFRANDO LA TUA ANIMA...",
+  "shareText": "CONDIVIDI CARTA DEL SOGNO",
+  "errorConnection": "Connessione al Regno dei Sogni fallita."
+}

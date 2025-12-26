@@ -1,0 +1,9 @@
+{
+  "@@locale": "ja",
+  "appTitle": "夢 の 解 読 者",
+  "inputPlaceholder": "ここに夢の内容を記入してください...",
+  "listeningStatus": "魂の声を聴いています...",
+  "analyzingStatus": "魂を解読しています...",
+  "shareText": "夢カードを共有",
+  "errorConnection": "夢の世界への接続に失敗しました。"
+}

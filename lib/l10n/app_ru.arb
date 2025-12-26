@@ -1,0 +1,9 @@
+{
+  "@@locale": "ru",
+  "appTitle": "Ч И Т А Т Е Л Ь   С Н О В",
+  "inputPlaceholder": "Опишите ваш сон здесь...",
+  "listeningStatus": "СЛУШАЕМ ВАШУ ДУШУ...",
+  "analyzingStatus": "РАСШИФРОВКА ВАШЕЙ ДУШИ...",
+  "shareText": "ПОДЕЛИТЬСЯ КАРТОЙ СНА",
+  "errorConnection": "Связь с Царством Снов прервана."
+}

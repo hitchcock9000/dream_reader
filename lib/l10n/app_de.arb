@@ -1,0 +1,9 @@
+{
+  "@@locale": "de",
+  "appTitle": "T R A U M   L E S E R",
+  "inputPlaceholder": "Beschreibe deinen Traum hier...",
+  "listeningStatus": "DEINER SEELE LAUSCHEN...",
+  "analyzingStatus": "DEINE SEELE ENTSCHLÜSSELN...",
+  "shareText": "TRAUMKARTE TEILEN",
+  "errorConnection": "Verbindung zum Traumreich fehlgeschlagen."
+}

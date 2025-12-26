@@ -1,0 +1,9 @@
+{
+  "@@locale": "ko",
+  "appTitle": "꿈 해석기",
+  "inputPlaceholder": "여기에 당신의 꿈을 기술하세요...",
+  "listeningStatus": "당신의 영혼에 귀를 기울이는 중...",
+  "analyzingStatus": "당신의 영혼을 해독하는 중...",
+  "shareText": "꿈 카드 공유",
+  "errorConnection": "꿈의 세계와의 연결에 실패했습니다."
+}

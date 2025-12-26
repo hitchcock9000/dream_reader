@@ -1,0 +1,9 @@
+{
+  "@@locale": "fr",
+  "appTitle": "L E C T E U R   D E   R Ê V E S",
+  "inputPlaceholder": "Décrivez votre rêve ici...",
+  "listeningStatus": "À L'ÉCOUTE DE VOTRE ÂME...",
+  "analyzingStatus": "DÉCRYPTAGE DE VOTRE ÂME...",
+  "shareText": "PARTAGER LA CARTE DU RÊVE",
+  "errorConnection": "La connexion au Royaume des Rêves a échoué."
+}

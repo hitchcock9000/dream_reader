@@ -1,0 +1,9 @@
+{
+  "@@locale": "ar",
+  "appTitle": "قـارئ الأحـلام",
+  "inputPlaceholder": "صف حلمك هنا...",
+  "listeningStatus": "نصغي إلى روحك...",
+  "analyzingStatus": "نفك رموز روحك...",
+  "shareText": "مشاركة بطاقة الحلم",
+  "errorConnection": "فشل الاتصال بعالم الأحلام."
+}

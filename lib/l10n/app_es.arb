@@ -1,0 +1,9 @@
+{
+  "@@locale": "es",
+  "appTitle": "L E C T O R   D E   S U E Ñ O S",
+  "inputPlaceholder": "Describe tu sueño aquí...",
+  "listeningStatus": "ESCUCHANDO A TU ALMA...",
+  "analyzingStatus": "DESCIFRANDO TU ALMA...",
+  "shareText": "COMPARTIR TARJETA DE SUEÑO",
+  "errorConnection": "La conexión con el Reino de los Sueños falló."
+}

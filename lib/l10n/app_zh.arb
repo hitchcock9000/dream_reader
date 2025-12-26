@@ -1,0 +1,9 @@
+{
+  "@@locale": "zh",
+  "appTitle": "解 梦 师",
+  "inputPlaceholder": "在这里描述你的梦境...",
+  "listeningStatus": "正在聆听你的灵魂...",
+  "analyzingStatus": "正在解析你的灵魂...",
+  "shareText": "分享梦境卡片",
+  "errorConnection": "与梦境境界的连接失败。"
+}
