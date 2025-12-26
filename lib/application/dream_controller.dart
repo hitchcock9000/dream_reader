@@ -50,7 +50,7 @@ class DreamController extends _$DreamController {
         if (!isListening) {
           debugPrint('🎙️ Transcription Finished: ${state.transcription}');
           if (state.transcription.trim().isNotEmpty) {
-            submitDream(state.transcription, languageCode: localeId.split('-').first);
+            submitDream(state.transcription);
           } else if (state.error == null) {
             // Only show "No speech detected" if there wasn't a harder error already
             state = state.copyWith(
@@ -66,12 +66,12 @@ class DreamController extends _$DreamController {
     ref.read(voiceServiceProvider).stopListening();
   }
 
-  Future<void> submitDream(String text, {String languageCode = 'en'}) async {
+  Future<void> submitDream(String text) async {
     state = state.copyWith(isLoading: true, error: null);
 
     try {
       final repository = ref.read(dreamAnalysisRepositoryProvider);
-      final analysis = await repository.analyzeDream(text, languageCode: languageCode);
+      final analysis = await repository.analyzeDream(text);
       
       state = state.copyWith(
         isLoading: false, 
@@ -79,10 +79,10 @@ class DreamController extends _$DreamController {
       );
       
       // Start Image Generation in parallel
-      _generateDreamImage(analysis.imageGenerationPrompt);
+      _generateDreamImage(analysis.archetypalTheme);
 
-      debugPrint('🔊 TTS Started');
-      await speakResult(analysis.interpretation, languageCode: languageCode);
+      debugPrint('🔊 TTS Started with detected language: ${analysis.detectedLanguage}');
+      await speakResult(analysis.interpretation, languageCode: analysis.detectedLanguage);
 
     } catch (e) {
       debugPrint('❌ Submission Error: $e');
@@ -128,11 +128,23 @@ class DreamController extends _$DreamController {
     final analysis = state.analysis;
     if (analysis == null) return;
     
-    final shareText = "🌌 Dream Interpretation:\n${analysis.interpretation}\n\n#DreamReader #CosmicInsights";
+    state = state.copyWith(isSharingImage: true);
     
-    await ref.read(shareServiceProvider).shareDream(
-      imageBytes: imageBytes, 
-      text: shareText
-    );
+    try {
+      final shareText = "🌌 Dream Interpretation:\n${analysis.interpretation}\n\n#DreamReader #CosmicInsights";
+      
+      await ref.read(shareServiceProvider).shareDreamCard(
+        imageBytes: imageBytes, 
+        text: shareText
+      );
+      
+      state = state.copyWith(isSharingImage: false);
+    } catch (e) {
+      debugPrint('❌ Share failed: $e');
+      state = state.copyWith(
+        isSharingImage: false,
+        error: "Failed to share dream card. Please try again.",
+      );
+    }
   }
 }

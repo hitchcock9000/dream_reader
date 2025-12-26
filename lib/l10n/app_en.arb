@@ -20,6 +20,7 @@
   "@shareText": {
     "description": "Text for the share button"
   },
+  "recordDream": "RECORD DREAM",
   "errorConnection": "Connection to the Dream Realm failed.",
   "@errorConnection": {
     "description": "General error message for connection failures"

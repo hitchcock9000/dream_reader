@@ -14,5 +14,6 @@ class DreamState with _$DreamState {
     String? imageUrl,
     String? imageError,
     @Default(false) bool isImageLoading,
+    @Default(false) bool isSharingImage,
   }) = _DreamState;
 }

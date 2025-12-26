@@ -22,14 +22,15 @@ class AIOrb extends StatelessWidget {
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        // Limit maximum size on large desktop/web screens
-        final double maxWidth = 400.0;
-        final double size = constraints.biggest.shortestSide.clamp(100.0, maxWidth);
-        final double orbSize = size * 0.5;
+        final double vh = MediaQuery.of(context).size.height;
+        // Size relative to screen height but clamped
+        final double size = (vh * 0.3).clamp(150.0, 400.0);
+        final double orbSize = size * 0.6;
 
         return Center(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: maxWidth, maxHeight: maxWidth),
+          child: SizedBox(
+            width: size,
+            height: size,
             child: Stack(
               alignment: Alignment.center,
               children: [
@@ -90,7 +91,7 @@ class AIOrb extends StatelessWidget {
                 .animate(onPlay: (c) => c.repeat(reverse: true))
                 .moveY(
                   begin: 0, 
-                  end: -10, 
+                  end: -20, 
                   duration: 4.seconds, 
                   curve: Curves.easeInOutSine,
                 )

@@ -2,7 +2,6 @@ import 'package:dream_reader/core/widgets/glass_container.dart';
 import 'package:dream_reader/domain/entities/dream_response.dart';
 import 'package:dream_reader/features/dream/presentation/widgets/dream_image_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:dream_reader/core/extensions/l10n_extension.dart';
@@ -27,9 +26,11 @@ class AnalysisFeed extends StatelessWidget {
   Widget build(BuildContext context) {
     if (analysis == null) return const SizedBox.shrink();
 
+    final size = MediaQuery.of(context).size;
+    final double sw = size.width * 0.01;
+
     final List<Widget> items = [];
 
-    // 1. The Dream Image (if ready)
     // 1. The Dream Image
     if (imageUrl != null || isImageLoading || imageError != null) {
       items.add(DreamImageCard(
@@ -54,15 +55,15 @@ class AnalysisFeed extends StatelessWidget {
         color: const Color(0xFF00F0FF),
       ),
       _FeedItem(
-        title: "MYSTICAL SYMBOL",
-        content: analysis!.mysticalSymbol,
-        icon: Icons.star,
+        title: "DREAM GUIDANCE",
+        content: analysis!.dreamGuidance,
+        icon: Icons.lightbulb,
         color: const Color(0xFFFF00FF),
       ),
       _FeedItem(
-        title: "VISUAL PROMPT",
-        content: analysis!.imageGenerationPrompt,
-        icon: Icons.image,
+        title: "ARCHETYPAL THEME",
+        content: analysis!.archetypalTheme,
+        icon: Icons.auto_awesome_motion,
         color: Colors.amber,
       ),
     ]);
@@ -71,16 +72,26 @@ class AnalysisFeed extends StatelessWidget {
     if (imageUrl != null && onShare != null) {
        items.add(
          Center(
-           child: ElevatedButton.icon(
-             onPressed: onShare,
-             icon: const Icon(Icons.share),
-             label: Text(context.l10n.shareText),
-             style: ElevatedButton.styleFrom(
-               backgroundColor: const Color(0xFF7B61FF),
-               foregroundColor: Colors.white,
-               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-             ),
-           ).animate().fadeIn(delay: 2.seconds),
+           child: Padding(
+             padding: EdgeInsets.symmetric(vertical: sw * 4),
+             child: ElevatedButton.icon(
+               onPressed: onShare,
+               icon: const Icon(Icons.share),
+               label: Text(context.l10n.shareText),
+               style: ElevatedButton.styleFrom(
+                 backgroundColor: const Color(0xFF7B61FF),
+                 foregroundColor: Colors.white,
+                 padding: EdgeInsets.symmetric(
+                   horizontal: sw * 8, 
+                   vertical: sw * 3,
+                 ),
+                 textStyle: GoogleFonts.orbitron(
+                   fontSize: (sw * 3).clamp(12.0, 16.0),
+                   letterSpacing: 1.5,
+                 ),
+               ),
+             ).animate().fadeIn(delay: 2.seconds),
+           ),
          ),
        );
     }
@@ -89,14 +100,30 @@ class AnalysisFeed extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: items
           .map((item) => Padding(
-                padding: EdgeInsets.only(bottom: 20.h),
+                padding: EdgeInsets.only(bottom: sw * 5),
                 child: item,
               ))
           .toList()
-          .animate(interval: 200.ms)
-          .fadeIn(duration: 800.ms)
-          .blur(begin: const Offset(10, 10), end: Offset.zero, duration: 800.ms)
-          .slideY(begin: 0.2, end: 0, duration: 800.ms, curve: Curves.easeOutCirc),
+          .animate(interval: 300.ms)
+          .fadeIn(duration: 1000.ms, curve: Curves.easeOut)
+          .blur(
+            begin: const Offset(15, 15),
+            end: Offset.zero,
+            duration: 1000.ms,
+            curve: Curves.easeOutCubic,
+          )
+          .slideY(
+            begin: 0.15,
+            end: 0,
+            duration: 1000.ms,
+            curve: Curves.easeOutCubic,
+          )
+          .scale(
+            begin: const Offset(0.95, 0.95),
+            end: const Offset(1.0, 1.0),
+            duration: 1000.ms,
+            curve: Curves.easeOutCubic,
+          ),
     );
   }
 }
@@ -116,16 +143,23 @@ class _FeedItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final double sw = size.width * 0.01;
+
     return GlassContainer(
       opacity: 0.08,
-      blur: 20.r,
+      blur: 20,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(icon, color: color, size: 18.sp),
-              SizedBox(width: 10.w),
+              Icon(
+                icon, 
+                color: color, 
+                size: (sw * 4).clamp(16.0, 22.0),
+              ),
+              SizedBox(width: sw * 2.5),
               Expanded(
                 child: Text(
                   title,
@@ -133,19 +167,21 @@ class _FeedItem extends StatelessWidget {
                     color: color,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 2,
-                    fontSize: 12.sp,
+                    fontSize: (sw * 3).clamp(11.0, 14.0),
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
             ],
           ),
-          SizedBox(height: 12.h),
+          SizedBox(height: sw * 3),
           Text(
             content,
             style: TextStyle(
-              color: Colors.white, // Using white text for readability
-              fontSize: 16.sp,
+              color: Colors.white,
+              fontSize: (size.width >= 1024) 
+                  ? (sw * 1.5).clamp(16.0, 20.0) 
+                  : (sw * 4).clamp(14.0, 17.0),
               height: 1.5,
             ),
           ),

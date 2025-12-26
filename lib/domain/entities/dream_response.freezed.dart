@@ -23,10 +23,12 @@ mixin _$DreamResponse {
   String get interpretation => throw _privateConstructorUsedError;
   @JsonKey(name: 'psychological_insight')
   String get psychologicalInsight => throw _privateConstructorUsedError;
-  @JsonKey(name: 'mystical_symbol')
-  String get mysticalSymbol => throw _privateConstructorUsedError;
-  @JsonKey(name: 'image_generation_prompt')
-  String get imageGenerationPrompt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'dream_guidance')
+  String get dreamGuidance => throw _privateConstructorUsedError;
+  @JsonKey(name: 'archetypal_theme')
+  String get archetypalTheme => throw _privateConstructorUsedError;
+  @JsonKey(name: 'detected_language')
+  String get detectedLanguage => throw _privateConstructorUsedError;
 
   /// Serializes this DreamResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,8 +49,9 @@ abstract class $DreamResponseCopyWith<$Res> {
   $Res call(
       {String interpretation,
       @JsonKey(name: 'psychological_insight') String psychologicalInsight,
-      @JsonKey(name: 'mystical_symbol') String mysticalSymbol,
-      @JsonKey(name: 'image_generation_prompt') String imageGenerationPrompt});
+      @JsonKey(name: 'dream_guidance') String dreamGuidance,
+      @JsonKey(name: 'archetypal_theme') String archetypalTheme,
+      @JsonKey(name: 'detected_language') String detectedLanguage});
 }
 
 /// @nodoc
@@ -68,8 +71,9 @@ class _$DreamResponseCopyWithImpl<$Res, $Val extends DreamResponse>
   $Res call({
     Object? interpretation = null,
     Object? psychologicalInsight = null,
-    Object? mysticalSymbol = null,
-    Object? imageGenerationPrompt = null,
+    Object? dreamGuidance = null,
+    Object? archetypalTheme = null,
+    Object? detectedLanguage = null,
   }) {
     return _then(_value.copyWith(
       interpretation: null == interpretation
@@ -80,13 +84,17 @@ class _$DreamResponseCopyWithImpl<$Res, $Val extends DreamResponse>
           ? _value.psychologicalInsight
           : psychologicalInsight // ignore: cast_nullable_to_non_nullable
               as String,
-      mysticalSymbol: null == mysticalSymbol
-          ? _value.mysticalSymbol
-          : mysticalSymbol // ignore: cast_nullable_to_non_nullable
+      dreamGuidance: null == dreamGuidance
+          ? _value.dreamGuidance
+          : dreamGuidance // ignore: cast_nullable_to_non_nullable
               as String,
-      imageGenerationPrompt: null == imageGenerationPrompt
-          ? _value.imageGenerationPrompt
-          : imageGenerationPrompt // ignore: cast_nullable_to_non_nullable
+      archetypalTheme: null == archetypalTheme
+          ? _value.archetypalTheme
+          : archetypalTheme // ignore: cast_nullable_to_non_nullable
+              as String,
+      detectedLanguage: null == detectedLanguage
+          ? _value.detectedLanguage
+          : detectedLanguage // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -103,8 +111,9 @@ abstract class _$$DreamResponseImplCopyWith<$Res>
   $Res call(
       {String interpretation,
       @JsonKey(name: 'psychological_insight') String psychologicalInsight,
-      @JsonKey(name: 'mystical_symbol') String mysticalSymbol,
-      @JsonKey(name: 'image_generation_prompt') String imageGenerationPrompt});
+      @JsonKey(name: 'dream_guidance') String dreamGuidance,
+      @JsonKey(name: 'archetypal_theme') String archetypalTheme,
+      @JsonKey(name: 'detected_language') String detectedLanguage});
 }
 
 /// @nodoc
@@ -122,8 +131,9 @@ class __$$DreamResponseImplCopyWithImpl<$Res>
   $Res call({
     Object? interpretation = null,
     Object? psychologicalInsight = null,
-    Object? mysticalSymbol = null,
-    Object? imageGenerationPrompt = null,
+    Object? dreamGuidance = null,
+    Object? archetypalTheme = null,
+    Object? detectedLanguage = null,
   }) {
     return _then(_$DreamResponseImpl(
       interpretation: null == interpretation
@@ -134,13 +144,17 @@ class __$$DreamResponseImplCopyWithImpl<$Res>
           ? _value.psychologicalInsight
           : psychologicalInsight // ignore: cast_nullable_to_non_nullable
               as String,
-      mysticalSymbol: null == mysticalSymbol
-          ? _value.mysticalSymbol
-          : mysticalSymbol // ignore: cast_nullable_to_non_nullable
+      dreamGuidance: null == dreamGuidance
+          ? _value.dreamGuidance
+          : dreamGuidance // ignore: cast_nullable_to_non_nullable
               as String,
-      imageGenerationPrompt: null == imageGenerationPrompt
-          ? _value.imageGenerationPrompt
-          : imageGenerationPrompt // ignore: cast_nullable_to_non_nullable
+      archetypalTheme: null == archetypalTheme
+          ? _value.archetypalTheme
+          : archetypalTheme // ignore: cast_nullable_to_non_nullable
+              as String,
+      detectedLanguage: null == detectedLanguage
+          ? _value.detectedLanguage
+          : detectedLanguage // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -153,9 +167,9 @@ class _$DreamResponseImpl implements _DreamResponse {
       {required this.interpretation,
       @JsonKey(name: 'psychological_insight')
       required this.psychologicalInsight,
-      @JsonKey(name: 'mystical_symbol') required this.mysticalSymbol,
-      @JsonKey(name: 'image_generation_prompt')
-      required this.imageGenerationPrompt});
+      @JsonKey(name: 'dream_guidance') required this.dreamGuidance,
+      @JsonKey(name: 'archetypal_theme') required this.archetypalTheme,
+      @JsonKey(name: 'detected_language') required this.detectedLanguage});
 
   factory _$DreamResponseImpl.fromJson(Map<String, dynamic> json) =>
       _$$DreamResponseImplFromJson(json);
@@ -166,15 +180,18 @@ class _$DreamResponseImpl implements _DreamResponse {
   @JsonKey(name: 'psychological_insight')
   final String psychologicalInsight;
   @override
-  @JsonKey(name: 'mystical_symbol')
-  final String mysticalSymbol;
+  @JsonKey(name: 'dream_guidance')
+  final String dreamGuidance;
   @override
-  @JsonKey(name: 'image_generation_prompt')
-  final String imageGenerationPrompt;
+  @JsonKey(name: 'archetypal_theme')
+  final String archetypalTheme;
+  @override
+  @JsonKey(name: 'detected_language')
+  final String detectedLanguage;
 
   @override
   String toString() {
-    return 'DreamResponse(interpretation: $interpretation, psychologicalInsight: $psychologicalInsight, mysticalSymbol: $mysticalSymbol, imageGenerationPrompt: $imageGenerationPrompt)';
+    return 'DreamResponse(interpretation: $interpretation, psychologicalInsight: $psychologicalInsight, dreamGuidance: $dreamGuidance, archetypalTheme: $archetypalTheme, detectedLanguage: $detectedLanguage)';
   }
 
   @override
@@ -186,16 +203,18 @@ class _$DreamResponseImpl implements _DreamResponse {
                 other.interpretation == interpretation) &&
             (identical(other.psychologicalInsight, psychologicalInsight) ||
                 other.psychologicalInsight == psychologicalInsight) &&
-            (identical(other.mysticalSymbol, mysticalSymbol) ||
-                other.mysticalSymbol == mysticalSymbol) &&
-            (identical(other.imageGenerationPrompt, imageGenerationPrompt) ||
-                other.imageGenerationPrompt == imageGenerationPrompt));
+            (identical(other.dreamGuidance, dreamGuidance) ||
+                other.dreamGuidance == dreamGuidance) &&
+            (identical(other.archetypalTheme, archetypalTheme) ||
+                other.archetypalTheme == archetypalTheme) &&
+            (identical(other.detectedLanguage, detectedLanguage) ||
+                other.detectedLanguage == detectedLanguage));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, interpretation,
-      psychologicalInsight, mysticalSymbol, imageGenerationPrompt);
+      psychologicalInsight, dreamGuidance, archetypalTheme, detectedLanguage);
 
   /// Create a copy of DreamResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -218,9 +237,10 @@ abstract class _DreamResponse implements DreamResponse {
       {required final String interpretation,
       @JsonKey(name: 'psychological_insight')
       required final String psychologicalInsight,
-      @JsonKey(name: 'mystical_symbol') required final String mysticalSymbol,
-      @JsonKey(name: 'image_generation_prompt')
-      required final String imageGenerationPrompt}) = _$DreamResponseImpl;
+      @JsonKey(name: 'dream_guidance') required final String dreamGuidance,
+      @JsonKey(name: 'archetypal_theme') required final String archetypalTheme,
+      @JsonKey(name: 'detected_language')
+      required final String detectedLanguage}) = _$DreamResponseImpl;
 
   factory _DreamResponse.fromJson(Map<String, dynamic> json) =
       _$DreamResponseImpl.fromJson;
@@ -231,11 +251,14 @@ abstract class _DreamResponse implements DreamResponse {
   @JsonKey(name: 'psychological_insight')
   String get psychologicalInsight;
   @override
-  @JsonKey(name: 'mystical_symbol')
-  String get mysticalSymbol;
+  @JsonKey(name: 'dream_guidance')
+  String get dreamGuidance;
   @override
-  @JsonKey(name: 'image_generation_prompt')
-  String get imageGenerationPrompt;
+  @JsonKey(name: 'archetypal_theme')
+  String get archetypalTheme;
+  @override
+  @JsonKey(name: 'detected_language')
+  String get detectedLanguage;
 
   /// Create a copy of DreamResponse
   /// with the given fields replaced by the non-null parameter values.

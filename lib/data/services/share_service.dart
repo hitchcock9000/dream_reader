@@ -13,21 +13,25 @@ ShareService shareService(Ref ref) {
 }
 
 class ShareService {
-  Future<void> shareDream({
+  Future<void> shareDreamCard({
     required Uint8List imageBytes,
     required String text,
   }) async {
     try {
       final tempDir = await getTemporaryDirectory();
-      final file = await File('${tempDir.path}/dream_card.png').create();
+      final timestamp = DateTime.now().millisecondsSinceEpoch;
+      final file = await File('${tempDir.path}/dream_card_$timestamp.png').create();
       await file.writeAsBytes(imageBytes);
 
       await Share.shareXFiles(
         [XFile(file.path)],
         text: text,
       );
+      
+      debugPrint('✅ Dream card shared successfully');
     } catch (e) {
-      debugPrint('Share Error: $e');
+      debugPrint('❌ Share Error: $e');
+      rethrow;
     }
   }
 }

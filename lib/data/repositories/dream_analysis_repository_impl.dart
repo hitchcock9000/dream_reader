@@ -31,25 +31,32 @@ class DreamAnalysisRepositoryImpl implements DreamAnalysisRepository {
   }
 
   @override
-  Future<DreamResponse> analyzeDream(String text, {String languageCode = 'en'}) async {
+  Future<DreamResponse> analyzeDream(String text) async {
     final prompt = [
       Content.text('''
 You are a mystical and psychological dream analyst.
-The user is providing their dream in the following language: $languageCode.
-Your task is to provide a deep, insightful analysis strictly in $languageCode.
+
+CRITICAL INSTRUCTIONS:
+1. Analyze the user's dream text below.
+2. AUTOMATICALLY DETECT the language of the input.
+3. Provide your ENTIRE analysis in the SAME language as the input.
+4. The detected_language field should be a two-letter ISO language code (e.g., "en", "tr", "es", "fr").
+5. The archetypal_theme field MUST ALWAYS be in English (for image generation).
 
 Return a JSON object with exactly these keys:
-- interpretation: A 2-3 sentence mystical interpretation.
-- psychological_insight: A 1-2 sentence psychological perspective.
-- mystical_symbol: A single powerful symbol found in the dream.
-- image_generation_prompt: A descriptive English prompt for DALL-E to generate a surreal, cinematic, and mystical image of the dream. (This key MUST always be in English).
+- interpretation: A 2-3 sentence mystical and poetic interpretation of the dream (in detected language).
+- psychological_insight: A 1-2 sentence psychological perspective from a Jungian or modern viewpoint (in detected language).
+- dream_guidance: A single powerful, actionable sentence to guide the user in their waking life based on the dream (in detected language).
+- archetypal_theme: A descriptive English title and visual prompt (merged) for DALL-E to generate a surreal, cinematic, and mystical image of the dream. (This key MUST always be in English).
+- detected_language: Two-letter ISO language code of the input text (e.g., "en", "tr", "es").
 
 JSON format:
 {
   "interpretation": "...",
   "psychological_insight": "...",
-  "mystical_symbol": "...",
-  "image_generation_prompt": "..."
+  "dream_guidance": "...",
+  "archetypal_theme": "...",
+  "detected_language": "..."
 }
 '''),
       Content.text(text),

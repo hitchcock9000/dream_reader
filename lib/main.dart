@@ -2,9 +2,7 @@ import 'package:dream_reader/features/dream/presentation/dream_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -20,44 +18,37 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(393, 852), // iPhone 14/15 standard size
-      minTextAdapt: true,
-      splitScreenMode: false,
-      builder: (context, child) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'DreamReader',
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: const [
-            Locale('en'),
-            Locale('tr'),
-            Locale('es'),
-            Locale('fr'),
-            Locale('de'),
-            Locale('pt'),
-            Locale('it'),
-            Locale('ru'),
-            Locale('zh'),
-            Locale('ja'),
-            Locale('ko'),
-            Locale('ar'),
-            Locale('hi'),
-          ],
-          theme: ThemeData(
-            useMaterial3: true,
-            brightness: Brightness.dark,
-            scaffoldBackgroundColor: Colors.black,
-            textTheme: GoogleFonts.rajdhaniTextTheme(ThemeData.dark().textTheme),
-          ),
-          home: const DreamScreen(),
-        );
-      },
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'DreamReader',
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en'),
+        Locale('tr'),
+        Locale('es'),
+        Locale('fr'),
+        Locale('de'),
+        Locale('pt'),
+        Locale('it'),
+        Locale('ru'),
+        Locale('zh'),
+        Locale('ja'),
+        Locale('ko'),
+        Locale('ar'),
+        Locale('hi'),
+      ],
+      theme: ThemeData(
+        useMaterial3: true,
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: Colors.black,
+        textTheme: GoogleFonts.rajdhaniTextTheme(ThemeData.dark().textTheme),
+      ),
+      home: const DreamScreen(),
     );
   }
 }

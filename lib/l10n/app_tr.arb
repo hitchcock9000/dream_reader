@@ -1,9 +1,10 @@
 {
   "@@locale": "tr",
   "appTitle": "R Ü Y A   O K U Y U C U",
-  "inputPlaceholder": "Rüyanızı buraya yazın...",
+  "inputPlaceholder": "Rüyanızı burada anlatın...",
   "listeningStatus": "RUHUNUZ DİNLENİYOR...",
   "analyzingStatus": "RUHUNUZ ÇÖZÜMLENİYOR...",
   "shareText": "RÜYA KARTINI PAYLAŞ",
+  "recordDream": "RÜYA KAYDET",
   "errorConnection": "Rüya Diyarı ile bağlantı kurulamadı."
 }

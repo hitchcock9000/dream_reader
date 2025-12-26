@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:dream_reader/presentation/widgets/audio_waveform.dart';
@@ -17,7 +16,7 @@ class SacredInput extends ConsumerStatefulWidget {
   const SacredInput({
     super.key,
     required this.isListening,
-    this.isLoading = false,
+    required this.isLoading,
     required this.onStartListening,
     required this.onStopListening,
   });
@@ -38,24 +37,25 @@ class _SacredInputState extends ConsumerState<SacredInput> {
 
   void _submitManual() {
     if (_textController.text.trim().isNotEmpty) {
-      final locale = Localizations.localeOf(context);
-      ref.read(dreamControllerProvider.notifier).submitDream(
-        _textController.text,
-        languageCode: locale.languageCode,
-      );
+      final controller = ref.read(dreamControllerProvider.notifier);
+      controller.submitDream(_textController.text);
       _textController.clear();
+      FocusScope.of(context).unfocus(); // Added unfocus
       setState(() => _isManualMode = false);
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final double sw = size.width * 0.01; // 1% of screen width
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         if (widget.isListening) ...[
           Padding(
-            padding: EdgeInsets.only(bottom: 20.h),
+            padding: EdgeInsets.only(bottom: sw * 4),
             child: const Center(child: AudioWaveform(isListening: true)),
           ),
           Text(
@@ -63,11 +63,11 @@ class _SacredInputState extends ConsumerState<SacredInput> {
             style: GoogleFonts.orbitron(
               color: Colors.white.withValues(alpha: 0.7),
               letterSpacing: 2.0,
-              fontSize: 10.sp,
+              fontSize: (sw * 3).clamp(10.0, 14.0),
               fontWeight: FontWeight.w300,
             ),
           ).animate().fadeIn(),
-          SizedBox(height: 20.h),
+          SizedBox(height: sw * 4),
         ],
 
         if (widget.isLoading) ...[
@@ -76,102 +76,134 @@ class _SacredInputState extends ConsumerState<SacredInput> {
             style: GoogleFonts.orbitron(
               color: const Color(0xFFFF00FF),
               letterSpacing: 2.0,
-              fontSize: 10.sp,
+              fontSize: (sw * 3).clamp(10.0, 14.0),
               fontWeight: FontWeight.w300,
             ),
           ).animate(onPlay: (c) => c.repeat(reverse: true)).fadeIn().shimmer(duration: 1.seconds),
-          SizedBox(height: 20.h),
+          SizedBox(height: sw * 4),
         ],
 
         if (_isManualMode && !widget.isLoading && !widget.isListening) ...[
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24.w),
+            padding: EdgeInsets.symmetric(horizontal: sw * 6),
             child: GlassContainer(
               opacity: 0.1,
               child: TextField(
                 controller: _textController,
                 autofocus: true,
                 maxLines: 3,
-                style: TextStyle(color: Colors.white, fontSize: 16.sp),
+                style: TextStyle(
+                  color: Colors.white, 
+                  fontSize: (sw * 4).clamp(14.0, 18.0),
+                ),
                 decoration: InputDecoration(
                   hintText: context.l10n.inputPlaceholder,
-                  hintStyle: TextStyle(color: Colors.white.withValues(alpha: 0.5)),
+                  hintStyle: TextStyle(color: Colors.white.withValues(alpha: 0.3)),
                   border: InputBorder.none,
-                  suffixIcon: IconButton(
-                    icon: const Icon(Icons.send, color: Color(0xFF00F0FF)),
-                    onPressed: _submitManual,
-                  ),
+                  contentPadding: EdgeInsets.all(sw * 4),
                 ),
                 onSubmitted: (_) => _submitManual(),
               ),
             ),
-          ).animate().fadeIn().slideY(begin: 0.1, end: 0),
-          SizedBox(height: 10.h),
-          TextButton(
-            onPressed: () => setState(() => _isManualMode = false),
-            child: Text(
-              "CANCEL",
-              style: GoogleFonts.orbitron(color: Colors.white38, fontSize: 10.sp, letterSpacing: 2),
-            ),
+          ),
+          SizedBox(height: sw * 3),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton(
+                onPressed: () => setState(() => _isManualMode = false),
+                child: Text(
+                  "CANCEL",
+                  style: GoogleFonts.orbitron(
+                    color: Colors.white.withValues(alpha: 0.4),
+                    fontSize: (sw * 2.5).clamp(10.0, 12.0),
+                  ),
+                ),
+              ),
+              SizedBox(width: sw * 4),
+              ElevatedButton(
+                onPressed: _submitManual,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF7B61FF),
+                ),
+                child: Text(
+                  "SUBMIT",
+                  style: GoogleFonts.orbitron(
+                    fontSize: (sw * 2.5).clamp(10.0, 12.0),
+                  ),
+                ),
+              ),
+            ],
           ),
         ] else if (!widget.isListening && !widget.isLoading) ...[
-          GestureDetector(
-            onTap: widget.onStartListening,
-            behavior: HitTestBehavior.opaque,
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 300),
-              constraints: BoxConstraints(
-                minWidth: 200.w,
-                maxWidth: 400.w,
-                minHeight: 60.h,
-                maxHeight: 80.h,
-              ),
-              decoration: BoxDecoration(
-                color: const Color(0xFF7B61FF).withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(40.r),
-                border: Border.all(
-                  color: const Color(0xFF7B61FF).withValues(alpha: 0.5),
-                  width: 1.5.w,
+          MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: GestureDetector(
+              onTap: widget.onStartListening,
+              behavior: HitTestBehavior.opaque,
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
+                constraints: BoxConstraints(
+                  minWidth: (sw * 50).clamp(200.0, 400.0),
+                  maxWidth: (sw * 80).clamp(200.0, 400.0),
+                  minHeight: (sw * 15).clamp(50.0, 80.0),
+                  maxHeight: (sw * 20).clamp(60.0, 100.0),
                 ),
-                boxShadow: [
-                  BoxShadow(
-                    color: const Color(0xFF7B61FF).withValues(alpha: 0.2),
-                    blurRadius: 30.r,
-                    spreadRadius: 2.r,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF7B61FF).withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(40),
+                  border: Border.all(
+                    color: const Color(0xFF7B61FF).withValues(alpha: 0.5),
+                    width: 1.5,
                   ),
-                ],
-              ),
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.mic, color: Colors.white, size: 20.sp),
-                    SizedBox(width: 15.w),
-                    Flexible(
-                      child: Text(
-                        "RECORD DREAM",
-                        style: GoogleFonts.orbitron(
-                          color: Colors.white,
-                          letterSpacing: 2,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 12.sp,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color(0xFF7B61FF).withValues(alpha: 0.2),
+                      blurRadius: 30,
+                      spreadRadius: 2,
                     ),
                   ],
                 ),
+                child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.mic,
+                        color: Colors.white,
+                        size: (sw * 5).clamp(18.0, 24.0),
+                      ),
+                      SizedBox(width: sw * 4),
+                      Flexible(
+                        child: Text(
+                          context.l10n.recordDream,
+                          style: GoogleFonts.orbitron(
+                            color: Colors.white,
+                            letterSpacing: 2,
+                            fontWeight: FontWeight.w400,
+                            fontSize: (sw * 3).clamp(11.0, 14.0),
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
-          ),
-          SizedBox(height: 15.h),
+          )
+              .animate()
+              .shimmer(delay: 800.ms, duration: 2.seconds)
+              .fadeIn(duration: 800.ms)
+              .scale(delay: 800.ms),
+          SizedBox(height: sw * 3),
           TextButton(
             onPressed: () => setState(() => _isManualMode = true),
             child: Text(
               "OR TYPE YOUR VISION",
               style: GoogleFonts.orbitron(
                 color: Colors.white.withValues(alpha: 0.4),
-                fontSize: 10.sp,
+                fontSize: (sw * 2.5).clamp(10.0, 12.0),
                 letterSpacing: 2,
               ),
             ),
@@ -181,25 +213,29 @@ class _SacredInputState extends ConsumerState<SacredInput> {
             onTap: widget.onStopListening,
             behavior: HitTestBehavior.opaque,
             child: Container(
-              width: 80.w,
-              height: 80.w, // Circle use width
+              width: (sw * 20).clamp(70.0, 90.0),
+              height: (sw * 20).clamp(70.0, 90.0),
               decoration: BoxDecoration(
                 color: const Color(0xFF00F0FF).withValues(alpha: 0.1),
                 shape: BoxShape.circle,
                 border: Border.all(
                   color: const Color(0xFF00F0FF).withValues(alpha: 0.8),
-                  width: 1.5.w,
+                  width: 1.5,
                 ),
                 boxShadow: [
                   BoxShadow(
                     color: const Color(0xFF00F0FF).withValues(alpha: 0.2),
-                    blurRadius: 30.r,
-                    spreadRadius: 2.r,
+                    blurRadius: 30,
+                    spreadRadius: 2,
                   ),
                 ],
               ),
               child: Center(
-                child: Icon(Icons.stop, color: const Color(0xFF00F0FF), size: 28.sp),
+                child: Icon(
+                  Icons.stop, 
+                  color: const Color(0xFF00F0FF), 
+                  size: (sw * 7).clamp(24.0, 32.0),
+                ),
               ),
             ),
           ),
