@@ -147,15 +147,17 @@ class _SacredInputState extends ConsumerState<SacredInput> {
                   children: [
                     Icon(Icons.mic, color: Colors.white, size: 20.sp),
                     SizedBox(width: 15.w),
-                    Text(
-                      "RECORD DREAM",
-                      style: GoogleFonts.orbitron(
-                        color: Colors.white,
-                        letterSpacing: 2,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
+                    Flexible(
+                      child: Text(
+                        "RECORD DREAM",
+                        style: GoogleFonts.orbitron(
+                          color: Colors.white,
+                          letterSpacing: 2,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12.sp,
+                        ),
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),

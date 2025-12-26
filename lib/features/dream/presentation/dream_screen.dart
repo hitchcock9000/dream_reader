@@ -197,7 +197,8 @@ class _DreamScreenState extends ConsumerState<DreamScreen> {
                       ),
                     ),
                   ),
-                );
+                ),
+              );
               },
             ),
           ),
