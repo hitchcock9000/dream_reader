@@ -3,11 +3,12 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 part 'image_generation_service.g.dart';
 
-// TODO: Ensure you pass --dart-define=OPENAI_API_KEY=your_key when running/building
-const _openAIKey = String.fromEnvironment('OPENAI_API_KEY');
+// Retrieve API Key from .env
+final _openAIKey = dotenv.get('OPENAI_API_KEY', fallback: '');
 
 @Riverpod(keepAlive: true)
 ImageGenerationService imageGenerationService(Ref ref) {

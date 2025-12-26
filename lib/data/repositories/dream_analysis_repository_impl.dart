@@ -4,11 +4,12 @@ import 'package:dream_reader/domain/repositories/dream_analysis_repository.dart'
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 part 'dream_analysis_repository_impl.g.dart';
 
-// TODO: Replace with secure API Key handling
-const _apiKey = String.fromEnvironment('GEMINI_API_KEY');
+// Retrieve API Key from .env
+final _apiKey = dotenv.get('GEMINI_API_KEY', fallback: '');
 
 @Riverpod(keepAlive: true)
 DreamAnalysisRepository dreamAnalysisRepository(Ref ref) {
@@ -20,7 +21,7 @@ class DreamAnalysisRepositoryImpl implements DreamAnalysisRepository {
 
   DreamAnalysisRepositoryImpl() {
     _model = GenerativeModel(
-      model: 'gemini-2.0-flash',
+      model: 'gemini-2.5-flash',
       apiKey: _apiKey,
       generationConfig: GenerationConfig(
         responseMimeType: 'application/json',

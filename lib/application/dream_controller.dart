@@ -21,9 +21,9 @@ class DreamController extends _$DreamController {
   }
 
   Future<void> _initTts() async {
-    await _flutterTts.setLanguage("en-US");
-    await _flutterTts.setPitch(1.0);
-    await _flutterTts.setSpeechRate(0.5); // Slower, more mystical
+    await _flutterTts.setLanguage("tr-TR");
+    await _flutterTts.setPitch(0.9);
+    await _flutterTts.setSpeechRate(0.4); // Deep, mystical voice
   }
 
   void startVoiceInput() async {
@@ -32,6 +32,7 @@ class DreamController extends _$DreamController {
     final voiceService = ref.read(voiceServiceProvider);
     
     await voiceService.startListening(
+      localeId: 'tr-TR',
       onResult: (text) {
         state = state.copyWith(transcription: text);
       },

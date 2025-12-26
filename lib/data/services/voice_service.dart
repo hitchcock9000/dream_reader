@@ -36,6 +36,7 @@ class VoiceService {
     required Function(String) onResult,
     required Function(bool) onListeningStateChanged,
     required Function(String) onError,
+    String localeId = 'tr-TR',
   }) async {
     _activeErrorCallback = onError;
     if (!_isInitialized) {
@@ -59,12 +60,13 @@ class VoiceService {
       onResult: (result) {
         onResult(result.recognizedWords);
       },
-      listenFor: const Duration(seconds: 30),
-      pauseFor: const Duration(seconds: 5),
+      localeId: localeId,
+      listenFor: const Duration(seconds: 60),
+      pauseFor: const Duration(seconds: 10),
       // ignore: deprecated_member_use
-      listenMode: ListenMode.confirmation,
+      listenMode: ListenMode.dictation,
       // ignore: deprecated_member_use
-      cancelOnError: true,
+      cancelOnError: false,
       // ignore: deprecated_member_use
       partialResults: true,
     );
