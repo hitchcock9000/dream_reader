@@ -4,6 +4,7 @@ import 'package:dream_reader/presentation/widgets/dream_image_reveal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:dream_reader/core/extensions/l10n_extension.dart';
 
 class AnalysisFeed extends StatelessWidget {
   final DreamResponse? analysis;
@@ -85,7 +86,7 @@ class AnalysisFeed extends StatelessWidget {
            child: ElevatedButton.icon(
              onPressed: onShare,
              icon: const Icon(Icons.share),
-             label: const Text("SHARE DREAM CARD"),
+             label: Text(context.l10n.shareText),
              style: ElevatedButton.styleFrom(
                backgroundColor: const Color(0xFF7B61FF),
                foregroundColor: Colors.white,

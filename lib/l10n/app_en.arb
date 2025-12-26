@@ -1,0 +1,27 @@
+{
+  "@@locale": "en",
+  "appTitle": "D R E A M   R E A D E R",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  "inputPlaceholder": "Describe your dream here...",
+  "@inputPlaceholder": {
+    "description": "Placeholder for dream text input"
+  },
+  "listeningStatus": "LISTENING TO YOUR SOUL...",
+  "@listeningStatus": {
+    "description": "Status shown when voice input is active"
+  },
+  "analyzingStatus": "DECRYPTING YOUR SOUL...",
+  "@analyzingStatus": {
+    "description": "Status shown when the dream is being analyzed"
+  },
+  "shareText": "SHARE DREAM CARD",
+  "@shareText": {
+    "description": "Text for the share button"
+  },
+  "errorConnection": "Connection to the Dream Realm failed.",
+  "@errorConnection": {
+    "description": "General error message for connection failures"
+  }
+}

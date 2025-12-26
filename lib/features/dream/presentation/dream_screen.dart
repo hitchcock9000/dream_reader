@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:dream_reader/core/extensions/l10n_extension.dart';
 
 class DreamScreen extends ConsumerStatefulWidget {
   const DreamScreen({super.key});
@@ -100,7 +101,7 @@ class _DreamScreenState extends ConsumerState<DreamScreen> {
                 
                 // Header (Premium Typography)
                 Text(
-                  "D R E A M   R E A D E R",
+                  context.l10n.appTitle,
                   style: GoogleFonts.orbitron(
                     color: Colors.white.withValues(alpha: 0.6),
                     fontSize: 12,
@@ -129,7 +130,7 @@ class _DreamScreenState extends ConsumerState<DreamScreen> {
                           child: Padding(
                             padding: const EdgeInsets.all(24.0),
                             child: Text(
-                              "Connection to the Dream Realm failed.\n${dreamState.error}",
+                              "${context.l10n.errorConnection}\n${dreamState.error}",
                               textAlign: TextAlign.center,
                               style: const TextStyle(color: Colors.redAccent),
                             ),
