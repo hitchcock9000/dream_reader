@@ -39,16 +39,16 @@ Your task is to provide a deep, insightful analysis strictly in $languageCode.
 
 Return a JSON object with exactly these keys:
 - interpretation: A 2-3 sentence mystical interpretation.
-- psychologicalInsight: A 1-2 sentence psychological perspective.
-- mysticalSymbol: A single powerful symbol found in the dream.
-- imageGenerationPrompt: A descriptive English prompt for DALL-E to generate a surreal, cinematic, and mystical image of the dream. (This key MUST always be in English).
+- psychological_insight: A 1-2 sentence psychological perspective.
+- mystical_symbol: A single powerful symbol found in the dream.
+- image_generation_prompt: A descriptive English prompt for DALL-E to generate a surreal, cinematic, and mystical image of the dream. (This key MUST always be in English).
 
 JSON format:
 {
   "interpretation": "...",
-  "psychologicalInsight": "...",
-  "mysticalSymbol": "...",
-  "imageGenerationPrompt": "..."
+  "psychological_insight": "...",
+  "mystical_symbol": "...",
+  "image_generation_prompt": "..."
 }
 '''),
       Content.text(text),
@@ -57,13 +57,20 @@ JSON format:
     try {
       final response = await _model.generateContent(prompt);
       
-      if (response.text == null) {
+      String? responseText = response.text;
+      if (responseText == null) {
         throw Exception('Failed to generate analysis: Empty response.');
       }
 
-      final jsonMap = jsonDecode(response.text!) as Map<String, dynamic>;
+      // Clean markdown code blocks if present
+      if (responseText.contains('```')) {
+        responseText = responseText.replaceAll(RegExp(r'```json|```'), '').trim();
+      }
+
+      final jsonMap = jsonDecode(responseText) as Map<String, dynamic>;
       return DreamResponse.fromJson(jsonMap);
     } catch (e) {
+      debugPrint('❌ Analysis Parsing Error: $e');
       throw Exception('Dream analysis failed: $e');
     }
   }
