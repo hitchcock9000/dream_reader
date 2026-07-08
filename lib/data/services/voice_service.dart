@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+import 'package:dream_reader/core/logging/logger.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:speech_to_text/speech_to_text.dart';
@@ -20,13 +20,21 @@ class VoiceService {
     if (!_isInitialized) {
       _isInitialized = await _speechToText.initialize(
         onError: (val) {
-          debugPrint('Voice Error: ${val.errorMsg}');
+          AppLogger.warning(
+            'Speech-to-text emitted an error.',
+            scope: 'voice',
+            error: val.errorMsg,
+          );
           _activeErrorCallback?.call(val.errorMsg);
         },
         onStatus: (val) {
-          debugPrint('Voice Status Global: $val');
+          AppLogger.debug(
+            'Speech-to-text status update.',
+            scope: 'voice',
+            context: {'status': val},
+          );
         },
-        debugLogging: true, 
+        debugLogging: true,
       );
     }
     return _isInitialized;
@@ -50,7 +58,11 @@ class VoiceService {
     onListeningStateChanged(true);
 
     _speechToText.statusListener = (status) {
-      debugPrint('Voice Status Listener: $status');
+      AppLogger.debug(
+        'Voice status listener update.',
+        scope: 'voice',
+        context: {'status': status},
+      );
       if (status == 'done' || status == 'notListening') {
         onListeningStateChanged(false);
       }
@@ -77,6 +89,6 @@ class VoiceService {
       await _speechToText.stop();
     }
   }
-  
+
   bool get isListening => _speechToText.isListening;
 }

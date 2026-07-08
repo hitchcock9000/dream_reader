@@ -1,7 +1,9 @@
 import 'dart:io';
+
+import 'package:dream_reader/core/logging/logger.dart';
 import 'package:flutter/foundation.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -27,10 +29,15 @@ class ShareService {
         [XFile(file.path)],
         text: text,
       );
-      
-      debugPrint('✅ Dream card shared successfully');
-    } catch (e) {
-      debugPrint('❌ Share Error: $e');
+
+      AppLogger.info('Dream card shared successfully.', scope: 'share');
+    } catch (error, stackTrace) {
+      AppLogger.error(
+        'Dream card sharing failed.',
+        scope: 'share',
+        error: error,
+        stackTrace: stackTrace,
+      );
       rethrow;
     }
   }
