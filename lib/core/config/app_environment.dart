@@ -8,7 +8,7 @@ class AppEnvironment {
     try {
       await dotenv.load(fileName: '.env');
       AppLogger.info('Loaded .env configuration', scope: 'config');
-    } catch (error, stackTrace) {
+    } catch (error) {
       AppLogger.warning(
         'No .env file found; falling back to dart-defines.',
         scope: 'config',
@@ -18,11 +18,7 @@ class AppEnvironment {
           'hasOpenAiDefine': openAiApiKey.isNotEmpty,
         },
       );
-      AppLogger.debug(
-        'Environment load fallback complete',
-        scope: 'config',
-        context: {'stackTraceCaptured': stackTrace.toString().isNotEmpty},
-      );
+      AppLogger.debug('Environment load fallback complete', scope: 'config');
     }
   }
 

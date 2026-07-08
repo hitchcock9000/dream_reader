@@ -25,12 +25,11 @@ class DreamController extends _$DreamController {
   Future<void> _initTts() async {
     try {
       await _speechSynthesizer.configure();
-    } catch (error, stackTrace) {
+    } catch (error) {
       AppLogger.warning(
         'Text-to-speech configuration failed.',
         scope: 'tts',
         error: error,
-        context: {'stackTraceCaptured': stackTrace.toString().isNotEmpty},
       );
     }
   }
@@ -178,15 +177,12 @@ class DreamController extends _$DreamController {
   Future<void> speakResult(String text, {String? languageCode}) async {
     try {
       await _speechSynthesizer.speak(text, languageCode: languageCode);
-    } catch (error, stackTrace) {
+    } catch (error) {
       AppLogger.warning(
         'Text-to-speech playback failed.',
         scope: 'tts',
         error: error,
-        context: {
-          'hasLanguageCode': languageCode != null && languageCode.isNotEmpty,
-          'stackTraceCaptured': stackTrace.toString().isNotEmpty,
-        },
+        context: {'hasLanguageCode': languageCode != null && languageCode.isNotEmpty},
       );
     }
   }

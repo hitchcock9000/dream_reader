@@ -75,12 +75,11 @@ class ImageService {
       final errorMessage =
           (data['error']?['message'] ?? 'Unknown image generation error') as String;
       return (null, errorMessage);
-    } catch (error, stackTrace) {
+    } catch (error) {
       AppLogger.warning(
         'Primary image generation failed; using fallback provider.',
         scope: 'image',
         error: error,
-        context: {'stackTraceCaptured': stackTrace.toString().isNotEmpty},
       );
       return _generatePollinationsImage(visualPrompt);
     }

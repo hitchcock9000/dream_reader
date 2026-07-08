@@ -77,7 +77,7 @@ Return a JSON object with exactly these keys:
 - interpretation: A 2-3 sentence mystical and poetic interpretation of the dream (in detected language).
 - psychological_insight: A 1-2 sentence psychological perspective from a Jungian or modern viewpoint (in detected language).
 - dream_guidance: A single powerful, actionable sentence to guide the user in their waking life based on the dream (in detected language).
-- archetypal_theme: A descriptive English title and visual prompt (merged) for image generation.
+- archetypal_theme: A descriptive English title and visual prompt (merged) for DALL-E image generation. This field MUST always stay in English.
 - detected_language: Two-letter ISO language code of the input text (e.g., "en", "tr", "es").
 
 JSON format:
