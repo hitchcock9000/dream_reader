@@ -1,8 +1,8 @@
 # Security and environment management
 
 ## Secrets
-- Never commit `/home/runner/work/dream_reader/dream_reader/.env`.
-- Use `/home/runner/work/dream_reader/dream_reader/.env.example` as the local template.
+- Never commit `.env`.
+- Use `.env.example` as the local template.
 - Prefer GitHub Actions secrets or deployment platform secrets for CI and production.
 
 ## Required configuration

@@ -71,7 +71,7 @@ flutter run \
 - **Cost:** average text-generation cost and image-generation cost per dream
 - **Reliability:** provider error rate and fallback activation rate
 
-See `/home/runner/work/dream_reader/dream_reader/docs/evaluation.md` for a baseline evaluation protocol.
+See `docs/evaluation.md` for a baseline evaluation protocol.
 
 ## Roadmap
 - [ ] Add deterministic prompt/eval harness

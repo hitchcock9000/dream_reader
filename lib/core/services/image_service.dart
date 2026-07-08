@@ -43,7 +43,7 @@ class ImageService {
         Uri.parse(_url),
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + _apiKey,
+          'Authorization': 'Bearer $_apiKey',
         },
         body: jsonEncode({
           'model': 'dall-e-3',
